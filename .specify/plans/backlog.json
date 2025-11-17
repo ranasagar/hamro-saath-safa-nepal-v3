@@ -1,0 +1,72 @@
+{
+  "version": "1.1.0",
+  "lastUpdated": "2025-11-17",
+  "source": "constitution.md",
+  "epics": [
+    {
+      "id": "E1",
+      "title": "Core Action Loop",
+      "stories": [
+        {"id":"E1-S1","title":"Report issue with photo","estimate":"S","acceptance":"Photo + category + short description saved; response 2xx"},
+        {"id":"E1-S2","title":"List and view issues","estimate":"M","acceptance":"Map and list return same canonical IDs"},
+        {"id":"E1-S3","title":"Create/RSVP event for issue","estimate":"M","acceptance":"Organizer can set date/time and target; RSVP increments count"},
+        {"id":"E1-S4","title":"Mark event solved with after-photo and reward","estimate":"M","acceptance":"After-photo stored; participants credited; transaction recorded"},
+        {"id":"E1-S5","title":"Points ledger & profile display","estimate":"S","acceptance":"User profile shows current SP and history"}
+      ]
+    },
+    {
+      "id": "E2",
+      "title": "Community & Social Engagement",
+      "stories": [
+        {"id":"E2-S1","title":"Live activity feed","estimate":"S","acceptance":"Feed shows recent items with metadata"},
+        {"id":"E2-S2","title":"Individual leaderboard","estimate":"M","acceptance":"Ranks computed and shown; paginated"},
+        {"id":"E2-S3","title":"Ward leaderboard","estimate":"M","acceptance":"Ward ranks aggregated and shown"},
+        {"id":"E2-S4","title":"Forum basics (threads/comments)","estimate":"M","acceptance":"Create/read/update for threads and comments"}
+      ]
+    },
+    {
+      "id": "E3",
+      "title": "Rewards Economy",
+      "stories": [
+        {"id":"E3-S1","title":"Rewards marketplace UI","estimate":"M","acceptance":"List of rewards with pricing and partner info"},
+        {"id":"E3-S2","title":"Redemption flow & receipts","estimate":"M","acceptance":"Atomic redemption; digital receipt stored"},
+        {"id":"E3-S3","title":"Merchandise purchase flow","estimate":"M","acceptance":"Order created; payment options supported"}
+      ]
+    },
+    {
+      "id": "E4",
+      "title": "Micro-Engagements & Education",
+      "stories": [
+        {"id":"E4-S1","title":"Log micro-actions with daily cap","estimate":"S","acceptance":"Daily cap enforced; micro-actions add SP"},
+        {"id":"E4-S2","title":"Civic Sense Hub content pages","estimate":"S","acceptance":"Hub accessible with content and quizzes"},
+        {"id":"E4-S3","title":"Short quiz awarding bonus points","estimate":"S","acceptance":"Quiz grades score and award points"}
+      ]
+    },
+    {
+      "id": "E5",
+      "title": "Administration & Governance",
+      "stories": [
+        {"id":"E5-S1","title":"Admin dashboard metrics","estimate":"M","acceptance":"Key metrics visible and filterable"},
+        {"id":"E5-S2","title":"CRUD for users/issues/rewards","estimate":"M","acceptance":"Admin can create/update/delete core objects"},
+        {"id":"E5-S3","title":"Feature flags for rollout","estimate":"S","acceptance":"Flags toggle features per environment"}
+      ]
+    }
+    ,
+    {
+      "id": "E6",
+      "title": "Production Readiness",
+      "stories": [
+        {"id":"E6-S1","title":"Infrastructure as Code and Environment Provisioning","estimate":"L","acceptance":"IaC templates for dev/staging/prod (terraform or similar); docs for provisioning"},
+        {"id":"E6-S2","title":"CI/CD pipelines and release process","estimate":"M","acceptance":"Automated build, test, and deploy pipelines for frontend/backend; gating on tests"},
+        {"id":"E6-S3","title":"Monitoring & Observability","estimate":"M","acceptance":"Metrics, traces, and logs collected; dashboards for key SLIs and alerting configured"},
+        {"id":"E6-S4","title":"Backups and Disaster Recovery","estimate":"M","acceptance":"Automated backups for DB and object store; documented restore procedure"},
+        {"id":"E6-S5","title":"Secrets Management & Config","estimate":"S","acceptance":"Secrets stored in a managed vault; no secrets in repos; config per-environment"},
+        {"id":"E6-S6","title":"Security & Compliance baseline","estimate":"M","acceptance":"OWASP controls, dependency scanning, basic threat model; privacy/data-retention policy drafted"},
+        {"id":"E6-S7","title":"Load Testing & Performance Budget","estimate":"M","acceptance":"Baseline load tests and performance budgets; documented bottlenecks and remediation plan"},
+        {"id":"E6-S8","title":"SRE Runbooks & Ops Playbooks","estimate":"S","acceptance":"Runbooks for incidents, on-call rotation guidance, and postmortem templates"},
+        {"id":"E6-S9","title":"Feature Flagging & Safe Rollouts","estimate":"S","acceptance":"Feature flag system integrated with deployments; ability to roll back or throttle features"},
+        {"id":"E6-S10","title":"Partner Onboarding & Merchant Integration","estimate":"M","acceptance":"Playbook and API contract for adding reward partners; sample merchant onboarding flow"}
+      ]
+    }
+  ]
+}

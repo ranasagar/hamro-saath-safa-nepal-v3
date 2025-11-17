@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install root deps
+        run: npm install
+      - name: Build frontend
+        run: npm run build --if-present
+      - name: Build backend
+        run: |
+          cd backend
+          npm install
+          npm run build --if-present
+      - name: Run backend contract tests (node + ts-node/esm)
+        run: |
+          cd backend
+          npm install
+          # Use explicit node loader invocation to match local runs on Windows dev
+          node --loader ts-node/esm ./node_modules/mocha/bin/mocha --exit "tests/**/*.spec.ts"
+      - name: Run static checks (placeholder)
+        run: echo "Add lint/static checks"

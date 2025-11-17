@@ -1,0 +1,303 @@
+openapi: 3.0.1
+info:
+  title: Hamro Saath API (Core)
+  version: 1.0.0
+paths:
+  /api/issues:
+    post:
+      summary: Create a new issue report
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                location:
+                  type: object
+                  properties:
+                    lat:
+                      type: number
+                    lng:
+                      type: number
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '201':
+          description: Created
+    get:
+      summary: List issues (with filters)
+      parameters:
+        - in: query
+          name: lat
+          schema:
+            type: number
+        - in: query
+          name: lng
+          schema:
+            type: number
+        - in: query
+          name: status
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+
+  /api/issues/{issueId}/events:
+    post:
+      summary: Create event for an issue
+      parameters:
+        - in: path
+          name: issueId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                startAt:
+                  type: string
+                  format: date-time
+                volunteerGoal:
+                  type: integer
+      responses:
+        '201':
+          description: Created
+
+  /api/events/{eventId}/rsvp:
+    post:
+      summary: RSVP to an event
+      parameters:
+        - in: path
+          name: eventId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: RSVP recorded
+
+  /api/events/{eventId}/complete:
+    post:
+      summary: Mark event complete with after-photo and distribute points
+      parameters:
+        - in: path
+          name: eventId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                afterPhoto:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Event completed and points distributed
+
+  /api/rewards/{rewardId}/redeem:
+    post:
+      summary: Redeem a reward (SP, cash or combined)
+      parameters:
+        - in: path
+          name: rewardId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                spUsed:
+                  type: integer
+                paymentMethod:
+                  type: string
+      responses:
+        '200':
+          description: Redemption initiated
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    Idempotency-Key:
+      name: Idempotency-Key
+      in: header
+      description: Unique client-supplied idempotency key to make mutating requests idempotent.
+      required: false
+      schema:
+        type: string
+
+  schemas:
+    Location:
+      type: object
+      properties:
+        lat:
+          type: number
+        lng:
+          type: number
+
+    ImageURL:
+      type: string
+      format: uri
+
+    Issue:
+      type: object
+      required: [id, title, status, location]
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        status:
+          type: string
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageURL'
+        location:
+          $ref: '#/components/schemas/Location'
+        createdAt:
+          type: string
+          format: date-time
+
+    IssueCreateRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        location:
+          $ref: '#/components/schemas/Location'
+        images:
+          type: array
+          items:
+            type: string
+            format: binary
+
+    IssuesListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Issue'
+        nextCursor:
+          type: string
+
+    Event:
+      type: object
+      required: [id, issueId, startAt]
+      properties:
+        id:
+          type: string
+        issueId:
+          type: string
+        startAt:
+          type: string
+          format: date-time
+        volunteerGoal:
+          type: integer
+        rsvps:
+          type: integer
+
+    EventCreateRequest:
+      type: object
+      properties:
+        startAt:
+          type: string
+          format: date-time
+        volunteerGoal:
+          type: integer
+        notes:
+          type: string
+
+    Award:
+      type: object
+      properties:
+        userId:
+          type: string
+        points:
+          type: integer
+        txId:
+          type: string
+
+    EventCompleteResponse:
+      type: object
+      properties:
+        eventId:
+          type: string
+        status:
+          type: string
+        awards:
+          type: array
+          items:
+            $ref: '#/components/schemas/Award'
+
+    RewardRedeemRequest:
+      type: object
+      properties:
+        spUsed:
+          type: integer
+        paymentMethod:
+          type: string
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+
+    LedgerTransaction:
+      type: object
+      required: [txId, userId, amount, type, status]
+      properties:
+        txId:
+          type: string
+        userId:
+          type: string
+        amount:
+          type: integer
+        type:
+          type: string
+          enum: [award, redeem, adjust]
+        status:
+          type: string
+          enum: [pending, settled, reversed]
+        createdAt:
+          type: string
+          format: date-time
+        metadata:
+          type: object
