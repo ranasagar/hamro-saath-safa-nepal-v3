@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.git/
+.github/
+tests/
+*.md
+*.log
+.env
+.DS_Store
+frontend/
+components/
+pages/
+infra/
+.specify/
