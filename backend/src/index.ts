@@ -18,7 +18,9 @@ app.use('/api', eventsRouter)
 app.use('/api/rewards', rewardsRouter)
 app.use('/api/users', usersRouter)
 
+app.get('/', (req, res) => res.json({ status: 'ok', service: 'hamro-saath-backend', version: '1.0.0' }))
 app.get('/_health', (req, res) => res.json({ status: 'ok', now: new Date().toISOString() }))
+app.get('/health', (req, res) => res.json({ status: 'ok', now: new Date().toISOString() }))
 
 // Export app for tests and for programmatic use. When not running tests, start the server.
 export default app
