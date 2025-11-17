@@ -7,8 +7,9 @@ describe('Contract: Rewards flow (list and redeem)', () => {
     // list rewards
     const listRes = await request(app).get('/api/rewards').send().set('Accept', 'application/json')
     expect(listRes.status).to.equal(200)
-    expect(listRes.body).to.be.an('array')
-    const reward = listRes.body[0]
+    expect(listRes.body).to.have.property('success', true)
+    expect(listRes.body.data).to.be.an('array')
+    const reward = listRes.body.data[0]
     expect(reward).to.have.property('id')
 
     // redeem reward (mock user id header used by dev auth)

@@ -8,7 +8,9 @@ export function devAuth(req: Request, res: Response, next: NextFunction) {
     ;(req as any).user = { id: 'guest', role: 'anonymous' }
     return next()
   }
-  // In a real app validate token; here we stub a user
-  ;(req as any).user = { id: 'user-1', role: 'user' }
+  // In a real app validate JWT; for dev/test, extract userId from "Bearer userId" format
+  const token = auth.replace(/^Bearer\s+/i, '').trim()
+  const userId = token || 'user-1'
+  ;(req as any).user = { id: userId, role: 'user' }
   return next()
 }

@@ -17,6 +17,14 @@ const rewards: Reward[] = [
     cashPrice: 0.5,
     partner: 'NTC',
     createdAt: new Date().toISOString()
+  },
+  { 
+    id: 'reward-2', 
+    title: '5 NPR Mobile Topup', 
+    costSP: 50, 
+    cashPrice: 0.25,
+    partner: 'NTC',
+    createdAt: new Date().toISOString()
   }
 ]
 
@@ -220,7 +228,7 @@ export function getUserBalance(userId: string): number {
 
 // ============ Rewards & Redemption ============
 export function listRewards(): Reward[] { 
-  return rewards 
+  return [...rewards].sort((a, b) => a.costSP - b.costSP)
 }
 
 export function getReward(id: string): Reward | undefined { 

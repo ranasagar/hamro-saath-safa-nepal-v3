@@ -7,12 +7,12 @@ describe('Contract: Event flow (create event, rsvp, complete)', () => {
     // create issue
     const issueRes = await request(app).post('/api/issues').send({ title: 'Event test', description: 'desc', category: 'litter' })
     expect(issueRes.status).to.equal(201)
-    const issueId = issueRes.body.id
+    const issueId = issueRes.body.data.id
 
     // create event for issue
     const eventRes = await request(app).post(`/api/issues/${issueId}/events`).send({ startAt: new Date().toISOString(), volunteerGoal: 5 })
     expect(eventRes.status).to.equal(201)
-    const eventId = eventRes.body.id
+    const eventId = eventRes.body.data.id
 
     // rsvp
     const rsvpRes = await request(app).post(`/api/events/${eventId}/rsvp`).send()
@@ -21,6 +21,6 @@ describe('Contract: Event flow (create event, rsvp, complete)', () => {
     // complete
     const completeRes = await request(app).post(`/api/events/${eventId}/complete`).send({ afterPhoto: 'after.jpg' })
     expect(completeRes.status).to.equal(200)
-    expect(completeRes.body).to.have.property('status', 'completed')
+    expect(completeRes.body.data.event).to.have.property('status', 'completed')
   })
 })
