@@ -24,11 +24,9 @@ jobs:
           cd backend
           npm install
           npm run build --if-present
-      - name: Run backend contract tests (node + ts-node/esm)
+      - name: Run backend tests
         run: |
           cd backend
-          npm install
-          # Use explicit node loader invocation to match local runs on Windows dev
-          node --loader ts-node/esm ./node_modules/mocha/bin/mocha --exit "tests/**/*.spec.ts"
+          npm test
       - name: Run static checks (placeholder)
         run: echo "Add lint/static checks"
