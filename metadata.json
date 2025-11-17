@@ -1,0 +1,7 @@
+{
+  "name": " Hamro Saath, Safa Nepal V3",
+  "description": "A gamified social action network that turns cleaning and civic responsibility into a rewarding, competitive, and community-driven activity in Nepal. Users can report issues, organize clean-up events, and earn rewards.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
