@@ -9,6 +9,8 @@ try {
   Database = null
 }
 
+export { getDb }
+
 function getDb() {
   const filename = process.env.SQLITE_FILE || (process.env.NODE_ENV === 'test' ? ':memory:' : 'dev.sqlite')
   if (!Database) {
@@ -41,7 +43,7 @@ CREATE TABLE IF NOT EXISTS idempotency_keys (
 
 // Lazy initialization - only create DB when actually accessed
 let dbInstance: any = null
-const db = new Proxy({}, {
+const db: any = new Proxy({}, {
   get(target, prop) {
     if (!dbInstance) {
       dbInstance = getDb()
