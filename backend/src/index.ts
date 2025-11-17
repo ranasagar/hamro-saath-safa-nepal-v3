@@ -25,5 +25,10 @@ export default app
 
 if (process.env.NODE_ENV !== 'test') {
 	const port = process.env.PORT || 4000
-	app.listen(port, () => console.log(`Backend dev server listening on http://localhost:${port}`))
+	const host = process.env.HOST || '0.0.0.0'
+	app.listen(port, host, () => {
+		console.log(`Backend server listening on http://${host}:${port}`)
+		console.log(`Environment: ${process.env.NODE_ENV || 'development'}`)
+		console.log(`Database mode: ${process.env.USE_DB || 'in-memory'}`)
+	})
 }
