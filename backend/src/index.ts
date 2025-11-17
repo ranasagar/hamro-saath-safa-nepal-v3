@@ -24,7 +24,7 @@ app.get('/_health', (req, res) => res.json({ status: 'ok', now: new Date().toISO
 export default app
 
 if (process.env.NODE_ENV !== 'test') {
-	const port = process.env.PORT || 4000
+	const port = parseInt(process.env.PORT || '4000', 10)
 	const host = process.env.HOST || '0.0.0.0'
 	app.listen(port, host, () => {
 		console.log(`Backend server listening on http://${host}:${port}`)
