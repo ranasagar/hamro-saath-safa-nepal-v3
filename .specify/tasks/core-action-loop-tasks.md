@@ -13,28 +13,28 @@ This file breaks down the Core Action Loop epic (report → map → event → co
 
 ## Setup
 
-- [ ] T001: Ensure backend test harness and CI are runnable locally and in CI (file: `backend/package.json`, `backend/tsconfig.json`, `.github/workflows/ci.yml`).
-- [ ] T002 P US? : Expand OpenAPI schemas for issues/events/rewards and add example request/response in `.specify/specs/core-concept/openapi.yaml` (file: `.specify/specs/core-concept/openapi.yaml`).
-- [ ] T003 P : Document the Safa Points (SP) ledger model with example transactions and unit-test skeleton (file: `.specify/specs/core-concept/spec.md`, new test file: `backend/tests/unit/ledger.spec.ts`).
+- [x] T001: Ensure backend test harness and CI are runnable locally and in CI (file: `backend/package.json`, `backend/tsconfig.json`, `.github/workflows/ci.yml`).
+- [x] T002 P US? : Expand OpenAPI schemas for issues/events/rewards and add example request/response in `.specify/specs/core-concept/openapi.yaml` (file: `.specify/specs/core-concept/openapi.yaml`).
+- [x] T003 P : Document the Safa Points (SP) ledger model with example transactions and unit-test skeleton (file: `.specify/specs/core-concept/spec.md`, new test file: `backend/tests/unit/ledger.spec.ts`).
 
 ## Foundational (backend core)
 
-- [ ] T004 US1: Implement POST /api/issues to accept multipart/form-data, store images (dev stub), and return 201 with issue id and image URLs (files: `backend/src/routes/issues.ts`, `backend/src/models/inMemoryStore.ts`, tests: `backend/tests/contract/test_issues_post.spec.ts`).
-- [ ] T005 US2: Implement GET /api/issues with pagination and filters (ward, status, category) and make response mapping-friendly (files: `backend/src/routes/issues.ts`, tests: `backend/tests/contract/test_issues_list.spec.ts`).
-- [ ] T006 US3: Implement POST /api/issues/{id}/events to create events tied to an issue (files: `backend/src/routes/events.ts`, tests: `backend/tests/contract/test_create_event.spec.ts`).
-- [ ] T007 US4: Implement POST /api/events/{id}/complete to accept after-photo, mark event completed, and award SP idempotently (files: `backend/src/routes/events.ts`, `backend/src/models/ledger.ts` (new), tests: `backend/tests/contract/test_event_complete.spec.ts`).
+- [x] T004 US1: Implement POST /api/issues to accept multipart/form-data, store images (dev stub), and return 201 with issue id and image URLs (files: `backend/src/routes/issues.ts`, `backend/src/models/inMemoryStore.ts`, tests: `backend/tests/contract/test_issues_post.spec.ts`).
+- [x] T005 US2: Implement GET /api/issues with pagination and filters (ward, status, category) and make response mapping-friendly (files: `backend/src/routes/issues.ts`, tests: `backend/tests/contract/test_issues_list.spec.ts`).
+- [x] T006 US3: Implement POST /api/issues/{id}/events to create events tied to an issue (files: `backend/src/routes/events.ts`, tests: `backend/tests/contract/test_create_event.spec.ts`).
+- [x] T007 US4: Implement POST /api/events/{id}/complete to accept after-photo, mark event completed, and award SP idempotently (files: `backend/src/routes/events.ts`, `backend/src/models/ledger.ts` (new), tests: `backend/tests/contract/test_event_complete.spec.ts`).
 
 ## User Stories (frontend + integration)
 
-- [ ] T008 US1 US2: Frontend: Add Issue create form and image preview; wire submission to POST /api/issues (files: `components/CreateThreadModal.tsx`, `pages/PublicHomePage.tsx`).
-- [ ] T009 US3: Frontend: Add Event creation UI and RSVP integration; wire to POST /api/issues/{id}/events and POST /api/events/{id}/rsvp (files: `components/OrganizeEventModal.tsx`, `pages/ThreadDetailPage.tsx`).
-- [ ] T010 US4: Frontend: Add Complete Event UI (after-photo upload) and handle reward notification (files: `components/CompleteEventModal.tsx`, `pages/ProfilePage.tsx`).
+- [x] T008 US1 US2: Frontend: Add Issue create form and image preview; wire submission to POST /api/issues (files: `components/CreateThreadModal.tsx`, `pages/PublicHomePage.tsx`).
+- [x] T009 US3: Frontend: Add Event creation UI and RSVP integration; wire to POST /api/issues/{id}/events and POST /api/events/{id}/rsvp (files: `components/OrganizeEventModal.tsx`, `pages/ThreadDetailPage.tsx`).
+- [x] T010 US4: Frontend: Add Complete Event UI (after-photo upload) and handle reward notification (files: `components/CompleteEventModal.tsx`, `pages/ProfilePage.tsx`).
 
 ## Polish, testing & ops
 
-- [ ] T011 US1-US4: Add/extend contract tests to cover happy path and idempotency (create issue -> create event -> rsvp -> complete -> award SP) and include double-submit tests for idempotency (files: `backend/tests/contract/test_events_flow.spec.ts`, add `backend/tests/contract/test_event_idempotency.spec.ts`).
-- [ ] T012 P : CI: Ensure contract tests run on PRs and coverage is measured/uploaded (files: `.github/workflows/ci.yml`, `.github/workflows/coverage.yml`).
-- [ ] T013 P : Image moderation & privacy policy doc and moderation queue stub (files: `.specify/specs/core-concept/spec.md`, `backend/src/middleware/moderation.ts` (new), `backend/src/routes/moderation.ts` (new)).
+- [x] T011 US1-US4: Add/extend contract tests to cover happy path and idempotency (create issue -> create event -> rsvp -> complete -> award SP) and include double-submit tests for idempotency (files: `backend/tests/contract/test_events_flow.spec.ts`, add `backend/tests/contract/test_event_idempotency.spec.ts`).
+- [x] T012 P : CI: Ensure contract tests run on PRs and coverage is measured/uploaded (files: `.github/workflows/ci.yml`, `.github/workflows/coverage.yml`).
+- [x] T013 P : Image moderation & privacy policy doc and moderation queue stub (files: `.specify/specs/core-concept/spec.md`, `backend/src/middleware/moderation.ts` (new), `backend/src/routes/moderation.ts` (new)).
 
 ---
 
