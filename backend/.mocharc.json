@@ -1,0 +1,7 @@
+{
+  "require": "ts-node/register/transpile-only",
+  "extensions": ["ts"],
+  "spec": "tests/**/*.spec.ts",
+  "exit": true,
+  "node-option": ["import=tsx"]
+}

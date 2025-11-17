@@ -8,14 +8,16 @@ try {
   // will throw later if DB is actually used
   Database = null
 }
-const filename = process.env.SQLITE_FILE || (process.env.NODE_ENV === 'test' ? ':memory:' : 'dev.sqlite')
-if (!Database) {
-  throw new Error('better-sqlite3 is required when USE_DB=true; set USE_DB=false or install better-sqlite3')
-}
-const db = new Database(filename)
 
-// run simple migrations
-db.exec(`
+function getDb() {
+  const filename = process.env.SQLITE_FILE || (process.env.NODE_ENV === 'test' ? ':memory:' : 'dev.sqlite')
+  if (!Database) {
+    throw new Error('better-sqlite3 is required when USE_DB=true; set USE_DB=false or install better-sqlite3')
+  }
+  const db = new Database(filename)
+
+  // run simple migrations
+  db.exec(`
 CREATE TABLE IF NOT EXISTS ledger_transactions (
   txId TEXT PRIMARY KEY,
   userId TEXT NOT NULL,
@@ -34,9 +36,26 @@ CREATE TABLE IF NOT EXISTS idempotency_keys (
 );
 `)
 
+  return db
+}
+
+// Lazy initialization - only create DB when actually accessed
+let dbInstance: any = null
+const db = new Proxy({}, {
+  get(target, prop) {
+    if (!dbInstance) {
+      dbInstance = getDb()
+    }
+    return dbInstance[prop]
+  }
+})
+
 export default db
 
 export function withTransaction<T>(fn: () => T): T {
-  const tran = db.transaction(fn)
+  if (!dbInstance) {
+    dbInstance = getDb()
+  }
+  const tran = dbInstance.transaction(fn)
   return tran()
 }
