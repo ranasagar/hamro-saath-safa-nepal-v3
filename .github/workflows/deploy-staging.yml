@@ -1,0 +1,34 @@
+name: Deploy Staging (Terraform)
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.4.0
+      - name: Terraform Init
+        working-directory: infra/terraform
+        run: |
+          terraform init
+      - name: Terraform Plan
+        working-directory: infra/terraform
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          terraform plan -var "env=staging" -out=plan.tfplan
+      - name: Terraform Apply (manual approval required)
+        if: github.event_name == 'workflow_dispatch' || false
+        working-directory: infra/terraform
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          terraform apply "plan.tfplan"

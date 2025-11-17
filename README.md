@@ -18,3 +18,10 @@ View your app in AI Studio: https://ai.studio/apps/drive/1KKaNyg86FQSDx-6F5FOqNl
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+## CI / Coverage badge
+
+Replace OWNER and REPO below with your repository owner/name to show workflow status and coverage job status.
+
+![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)
+![Coverage](https://github.com/OWNER/REPO/actions/workflows/coverage.yml/badge.svg)

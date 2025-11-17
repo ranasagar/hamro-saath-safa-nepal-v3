@@ -1,0 +1,27 @@
+[
+  {
+    "title": "E1-S1: Report issue with photo",
+    "body": "As a user, I want to report an issue with a photo, category, and short description so I can alert the community and earn points. Acceptance: Photo + category + short description saved; response 2xx.",
+    "labels": ["epic:E1","story:US1","area:reporting"]
+  },
+  {
+    "title": "E1-S2: List and view issues",
+    "body": "As a user, I want to view reported issues on a map and list so I can understand what's happening in my area. Acceptance: Map and list return same canonical IDs.",
+    "labels": ["epic:E1","story:US2","area:map"]
+  },
+  {
+    "title": "E1-S3: Create/RSVP event for issue",
+    "body": "As a user, I want to organize a clean-up event for a reported issue, setting a date, time, and volunteer goal. Acceptance: Organizer can set date/time and target; RSVP increments count.",
+    "labels": ["epic:E1","story:US3","area:events"]
+  },
+  {
+    "title": "E1-S4: Mark event solved with after-photo & reward",
+    "body": "As an organizer, I want to mark an event as 'Solved' by uploading an 'after' photo, automatically rewarding participants. Acceptance: After-photo stored; participants credited; transaction recorded.",
+    "labels": ["epic:E1","story:US4","area:events"]
+  },
+  {
+    "title": "E1-S5: Points ledger & profile display",
+    "body": "As a user, I want to see my Safa Points (SP) and transaction history in my profile. Acceptance: User profile shows current SP and history.",
+    "labels": ["epic:E1","story:US5","area:rewards"]
+  }
+]

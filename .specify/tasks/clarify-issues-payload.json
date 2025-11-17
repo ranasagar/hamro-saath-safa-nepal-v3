@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Clarify: Issue creation API payload & media handling",
+    "body": "Blocker: Define exact API payload for creating an issue. Questions:\n- Required vs optional fields?\n- Should images be uploaded multipart/form-data or accepted as URLs/base64?\n- Is an idempotency key required for clients?\n\nAcceptance criteria:\n- POST /api/issues OpenAPI path with example request/response included in openapi.yaml.\n- Example: multipart/form-data sample with at least one image and a successful 201 response including image CDN URL.",
+    "labels": ["spec", "clarify", "backend"],
+    "assignees": []
+  },
+  {
+    "title": "Clarify: Authentication & anonymous usage matrix",
+    "body": "Blocker: Define auth requirements per endpoint. Questions:\n- Which endpoints allow anonymous use?\n- Which user identity fields are mandatory and when (name, phone)?\n- How should mobile clients authenticate (JWT, OAuth, session cookie)?\n\nAcceptance criteria:\n- Auth matrix (endpoints x auth) added to spec.md or a separate auth.md.\n- Tests: unauthenticated behavior defined for POST /api/issues and others.",
+    "labels": ["spec", "clarify", "security"],
+    "assignees": []
+  },
+  {
+    "title": "Clarify: Event completion → awarding SP (business rules)",
+    "body": "Blocker: Define exact conditions for SP issuance. Questions:\n- How is attendance verified?\n- Is admin approval required to award points?\n- Max SP per participant and idempotency rules?\n\nAcceptance criteria:\n- Business rules doc linked from spec, sample ledger entries, and an idempotent award API example.",
+    "labels": ["spec", "clarify", "product"],
+    "assignees": []
+  },
+  {
+    "title": "Clarify: SP ledger & transaction semantics",
+    "body": "Blocker: Define transaction model for Safa Points. Questions:\n- Pending vs settled states?\n- Reversal / refund semantics?\n- Transaction id format and precision?\n\nAcceptance criteria:\n- Ledger model documented with sample transactions and balance computation examples.",
+    "labels": ["spec", "clarify", "backend"],
+    "assignees": []
+  },
+  {
+    "title": "Clarify: Rewards redemption atomicity & hybrid payments",
+    "body": "Blocker: Define the flow for redemptions that use SP + cash. Questions:\n- Steps for reserving inventory and charging external payments?\n- Failure handling and rollback rules (refund SP, release inventory)?\n\nAcceptance criteria:\n- Redemption API contract with hybrid payment example and failure scenarios.",
+    "labels": ["spec", "clarify", "payments"],
+    "assignees": []
+  },
+  {
+    "title": "Clarify: Image moderation & privacy policy for user media",
+    "body": "High: Define moderation policy and retention/visibility rules for images. Questions:\n- Are images auto-moderated?\n- When should images be hidden or redacted?\n- Retention period and user deletion rights?\n\nAcceptance criteria:\n- Moderation flow documented and example test cases for flagged images.",
+    "labels": ["spec", "clarify", "legal"],
+    "assignees": []
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "title": "API: POST /api/issues — Create Issue (US1)",
+    "body": "Implement POST /api/issues to accept multipart/form-data with images and location. Acceptance criteria:\n- Returns 201 with issue id and canonical CDN image URLs.\n- Stores images in S3 (or local dev stub) and returns URLs.\n- Request/response schema added to openapi.yaml.\n- Contract test added under backend/tests/contract/test_issues_post.spec.ts.\nEstimate: 1-2 days.",
+    "labels": ["spec","backend","api","priority:P1"],
+    "assignees": []
+  },
+  {
+    "title": "Frontend: Issue create form + map integration (US1, US2)",
+    "body": "Add Issue creation UI and ensure created issues appear on map and list. Acceptance:\n- Form supports image upload and preview; client sends multipart to backend.\n- New issue appears on map list with marker and opens detail view.\nEstimate: 1-2 days.",
+    "labels": ["frontend","ux","priority:P1"],
+    "assignees": []
+  },
+  {
+    "title": "API: GET /api/issues — List & map endpoints (US2)",
+    "body": "Implement GET /api/issues with pagination and filters (ward, status, category). Acceptance:\n- Cursor-based pagination (or offset if preferred) with example in OpenAPI.\n- Response includes location field suitable for mapping.\n- Contract test added for list and filters.\nEstimate: 1 day.",
+    "labels": ["spec","backend","api","priority:P1"],
+    "assignees": []
+  },
+  {
+    "title": "API: POST /api/issues/{id}/events — Create Event (US3)",
+    "body": "Implement event creation endpoint tied to an issue. Acceptance:\n- Returns 201 with event id and linked issue id.\n- Request schema includes startAt (RFC3339), volunteerGoal, notes.\n- Contract test added under backend/tests/contract.\nEstimate: 1 day.",
+    "labels": ["spec","backend","api","priority:P1"],
+    "assignees": []
+  },
+  {
+    "title": "API: POST /api/events/{id}/complete — Complete event & award SP (US4)",
+    "body": "Implement event completion flow: store after-photo, mark event completed, and award SP idempotently. Acceptance:\n- Returns 200 with awards array (userId, points, txId).\n- Ledger entry created for each award; operation is idempotent.\n- Contract test added with double-submit to ensure idempotency.\nEstimate: 2 days.",
+    "labels": ["spec","backend","payments","priority:P1"],
+    "assignees": []
+  },
+  {
+    "title": "Define SP ledger model and transactions",
+    "body": "Design and document Safa Points ledger model: transaction types, pending vs settled states, reversal rules, transaction ids, and balance computation. Acceptance:\n- Spec doc in .specify or spec.md, example transactions and expected balances.\n- Unit tests for ledger computations.\nEstimate: 1 day.",
+    "labels": ["spec","backend","design","priority:P1"],
+    "assignees": []
+  },
+  {
+    "title": "OpenAPI: Add schemas for issues/events/rewards and error responses",
+    "body": "Expand openapi.yaml to include request/response schemas for POST /api/issues, GET /api/issues, POST /api/issues/{id}/events, POST /api/events/{id}/complete, and a standard error object. Acceptance:\n- Generated types (openapi-typescript) compile without errors in frontend/backend.\nEstimate: 1 day.",
+    "labels": ["api","openapi","spec","priority:P1"],
+    "assignees": []
+  },
+  {
+    "title": "Image moderation & privacy policy (spec task)",
+    "body": "Draft image moderation policy: automated checks, manual review flow, visibility rules, retention period, and delete-on-request. Acceptance:\n- Documented flow in spec.md and a moderation queue stub in backend.\nEstimate: 0.5-1 day.",
+    "labels": ["spec","legal","ops"],
+    "assignees": []
+  },
+  {
+    "title": "Contract tests: full Core Action Loop smoke (US1→US4)",
+    "body": "Add contract tests that exercise the end-to-end loop: create issue -> create event -> rsvp -> complete -> award SP. Acceptance:\n- Tests located in backend/tests/contract covering happy path and idempotency.\nEstimate: 1 day.",
+    "labels": ["tests","backend","contract"],
+    "assignees": []
+  },
+  {
+    "title": "CI: Add contract test job for backend and coverage",
+    "body": "Ensure GitHub Actions runs contract tests and coverage for backend on PRs. Acceptance:\n- CI job configured; failing tests block merges on protected branches.\nEstimate: 0.5 day.",
+    "labels": ["ci","devops","tests"],
+    "assignees": []
+  }
+]
