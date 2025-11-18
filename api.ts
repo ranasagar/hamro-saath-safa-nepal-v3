@@ -5,7 +5,7 @@
 
 const API_BASE = (typeof import.meta.env !== 'undefined' && import.meta.env.VITE_API_URL) 
   ? import.meta.env.VITE_API_URL 
-  : 'http://localhost:4000'
+  : 'https://web-production-50662.up.railway.app'
 
 export interface APIOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
